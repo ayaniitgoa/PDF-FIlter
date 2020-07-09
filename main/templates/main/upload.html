@@ -1,0 +1,29 @@
+{% extends "main/index.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %} Upload Form {% endblock %}
+  </head>
+
+  {% block content %}
+  <div class="container">
+    <span class="upload_title">Upload File</span>
+    <br />
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %} {{form.name}}
+      <br />
+      <select name="branch" id="" class="custom-select">
+        <option value="Mechanical">Mechanical</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Electrical">Electrical</option>
+      </select>
+      <br />
+      <br />{{form.pdf}}<br />
+      <br />
+      <button type="submit" class="btn btn-primary">Submit File</button>
+    </form>
+  </div>
+  {% endblock %}
+</html>

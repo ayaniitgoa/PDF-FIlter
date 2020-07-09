@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Main {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #e0ffff;
+      }
+      .footer {
+        background: black;
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
+        color: white;
+      }
+
+      .table {
+        background: white !important;
+        margin-top: 5vh;
+      }
+
+      .center {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      td,
+      th {
+        text-align: center !important;
+        /* width: 25%; */
+      }
+
+      .cntr {
+        display: table;
+      }
+      .cntr .cntr-innr {
+        display: table-cell;
+        text-align: center;
+      }
+      /*** STYLES ***/
+      .search {
+        display: inline-block;
+        position: relative;
+        height: 35px;
+        width: 35px;
+        box-sizing: border-box;
+        margin: 0px 8px 7px 0px;
+        padding: 7px 9px 0px 9px;
+        border: 3px solid black;
+        border-radius: 25px;
+        -webkit-transition: all 200ms ease;
+        transition: all 200ms ease;
+        cursor: text;
+      }
+      .search:after {
+        content: '';
+        position: absolute;
+        width: 3px;
+        height: 20px;
+        right: -5px;
+        top: 21px;
+        background: black;
+        border-radius: 3px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transition: all 200ms ease;
+        transition: all 200ms ease;
+      }
+      .search.active,
+      .search:hover {
+        width: 200px;
+        margin-right: 0px;
+      }
+      .search.active:after,
+      .search:hover:after {
+        height: 0px;
+      }
+      .search input {
+        width: 100%;
+        border: none;
+        box-sizing: border-box;
+        font-family: Helvetica;
+        font-size: 15px;
+        color: inherit;
+        background: transparent;
+        outline-width: 0px;
+        position: relative;
+        top: -5px;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus,
+      button:focus {
+        outline: none;
+      }
+
+      .filter-field {
+        margin-right: 1vw;
+      }
+
+      .upload_title {
+        display: flex;
+        justify-content: center;
+        font-size: 3rem;
+      }
+
+      .filter-button {
+        margin-left: 1vw !important;
+      }
+
+      .loader {
+        position: fixed;
+        z-index: 99;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loader.hidden {
+        animation: fadeOut 1s;
+        animation-fill-mode: forwards;
+      }
+      @keyframes fadeOut {
+        100% {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-icon">
+      <a class="navbar-brand" href="#">FileUpload</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'upload' %}">Upload</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'files' %}">Files</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="h4 container text-primary">
+      Files can be filtered based on name, branch and if you want to check if
+      any word is present in any of the files.
+    </div>
+    <div class=""></div>
+    <div class="loader">
+      <img src="../../../media/25.gif" />
+    </div>
+    {% block content %} {% endblock %}
+    <script>
+      window.addEventListener('load', function () {
+        const loader = document.querySelector('.loader');
+        loader.className += ' hidden';
+      });
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $('#inpt_search').on('focus', function () {
+        $(this).parent('label').addClass('active');
+      });
+
+      $('#inpt_search').on('blur', function () {
+        if ($(this).val().length == 0)
+          $(this).parent('label').removeClass('active');
+      });
+    </script>
+    <!-- <div class="footer">
+      <p>Footer</p>
+    </div> -->
+  </body>
+</html>

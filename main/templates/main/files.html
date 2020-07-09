@@ -1,0 +1,127 @@
+{% extends "main/index.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Compiled and minified CSS -->
+
+    {% block title %} Files {% endblock %}
+    <style>
+      .container {
+        width: 50vw !important;
+      }
+
+
+    </style>
+  </head>
+  
+  {% block content %}
+    <!-- Button trigger modal -->
+    <div class="container">
+
+      <button type="button" class="btn btn-primary filter-button" data-toggle="modal" data-target="#exampleModal">
+        Filter
+      </button>
+    </div>
+  
+  <!-- Modal -->
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+        <div class="modal-body">
+            <div class="d-flex">
+            <span class="filter-field">Name:</span>
+            <div class="cntr">
+                <div class="cntr-innr">
+                  <label class="search" for="inpt_search">
+                        <input id="inpt_search" type="text" name="name"/>
+                       
+                    </label>
+                  
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <span class="filter-field">Branch:</span>
+            <div class="cntr">
+                <div class="cntr-innr">
+                  <label class="search" for="inpt_search">
+                        <input id="inpt_search" type="text" name="branch"/>
+                       
+                    </label>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <span class="filter-field">Skills:</span>
+            <div class="cntr">
+                <div class="cntr-innr">
+                  <label class="search" for="inpt_search">
+                        <input id="inpt_search" type="text" name="skill"/>
+                       
+                    </label>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+     <div class="container">
+         
+         <span class="upload_title">Files</span>
+         <a href="{% url 'upload' %}" class="btn btn-primary center">Upload File</a>
+    {% if files %}
+    
+    <table class="table table-borderless table-light">
+
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Resume/CV</th>
+            </tr>
+        </thead>
+            {% for file in files %}
+            <tr>
+              <td scope="row">{{forloop.counter}}</td>
+              <td scope="row">{{file.name}}</td>
+              <td scope="row">{{file.branch}}</td>
+              <td scope="row">
+                <a href="{{file.pdf.url}}" target="_blank">Download PDF</a>
+              </td>
+              {% endfor %}
+          <tr>
+           
+        </tbody>
+      </table>
+      {% else %}
+      <span style="display: flex; justify-content: center;"> No Files Found </span>
+      {% endif %}
+  </div>
+  <!-- <button type="button" class="btn btn-outline-info">Info</button> -->
+  
+  
+  {% endblock %}
+</html>
